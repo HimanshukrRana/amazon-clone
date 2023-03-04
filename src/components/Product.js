@@ -44,7 +44,8 @@ function Product({ id, title, price, description, category, image }) {
         height={200}
         width={200}
         alt="img"
-        objectFit="contain"
+        style={{ objectFit: "contain" }}
+        className="h-auto w-auto"
       />
 
       <h4 className="my-3">{title}</h4>
@@ -56,6 +57,7 @@ function Product({ id, title, price, description, category, image }) {
               icon="material-symbols:star-rate-rounded"
               color="yellow"
               height={20}
+              key={i}
             />
           ))}
       </div>

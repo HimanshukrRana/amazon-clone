@@ -4,6 +4,9 @@ import Banner from "../components/Banner";
 import Header from "../components/Header";
 import ProductFeed from "../components/ProductFeed";
 
+// const dotenv = require("dotenv");
+// dotenv.config();
+
 export default function Home({ products }) {
   //   console.log(products);
   return (
@@ -13,7 +16,7 @@ export default function Home({ products }) {
       </Head>
       <Header />
 
-      <main>
+      <main className="max-w-screen-xl m-auto">
         <Banner />
         <ProductFeed products={products} />
       </main>

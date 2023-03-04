@@ -5,6 +5,9 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { selectItems } from "../slices/basketSlice";
+import Link from "next/link";
+
+// import logo from "../../public/amazon-logo.png";
 
 function Header() {
   const { data: session } = useSession();
@@ -18,17 +21,21 @@ function Header() {
       {/* top nav */}
 
       <div className="flex items-center bg-amazon_blue p-1 flex-grow py-2">
-        <div className="mt-2 flex items-center flex-grow sm:flex-grow-0 px-2">
+        <Link
+          href="/"
+          className="mt-2 flex items-center flex-grow sm:flex-grow-0 px-2"
+        >
           <Image
-            src="https://links.papareact.com/f90"
+            // src="https://links.papareact.com/f90"
+            src="/amazon.png"
             width={110}
             height={40}
             alt="amazon2.0"
-            objectFit="contain"
-            className="cursor-pointer"
+            style={{ objectFit: "contain" }}
+            className="cursor-pointer h-auto w-auto"
             onClick={() => router.push("/")}
           />
-        </div>
+        </Link>
 
         {/* Search */}
         <div className=" hidden sm:flex items-center h-10 rounded-md flex-grow cursor-pointer bg-yellow-400 hover:bg-yellow-500">
@@ -49,17 +56,17 @@ function Header() {
             </p>
             <p className="font-bold md:text-sm">Account & List</p>
           </div>
-          <div className=" link ">
+          <Link href="/orders" className=" link ">
             <p>Returns</p>
             <p className="font-bold md:text-sm">& Orders</p>
-          </div>
+          </Link>
           <div
             className="relative items-center link flex  "
             onClick={() => router.push("/checkout")}
           >
-            <span className="absolute top-0 right-0 md:right-10 bg-yellow-400 h-4 w-4 text-center text-black font-bold rounded-full">
+            <p className="absolute top-0 right-0 md:right-10 bg-yellow-400 h-4 w-4 text-center text-black font-bold rounded-full">
               {items.length}
-            </span>
+            </p>
             <Icon icon="material-symbols:shopping-cart-outline" height={35} />
             <p className="font-bold hidden md:inline md:text-sm mt-2">Basket</p>
           </div>
@@ -68,10 +75,10 @@ function Header() {
 
       {/* bottom nav */}
       <div className="flex items-center space-x-3 p-2 pl-6 bg-amazon_blue-light text-white text-sm">
-        <p className="link flex items-center">
+        <span className="link flex items-center">
           <Icon icon="material-symbols:menu-rounded" height={29} />
           All
-        </p>
+        </span>
         <p className="link">Amazon Prime</p>
         <p className="link">Today's Deal</p>
         <p className="link">Mobiles</p>

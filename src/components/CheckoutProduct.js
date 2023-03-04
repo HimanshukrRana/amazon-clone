@@ -39,7 +39,7 @@ function CheckoutProduct({
         alt="product"
         height={200}
         width={200}
-        objectFit="contain"
+        style={{ objectFit: "contain" }}
       />
 
       {/* Middle */}

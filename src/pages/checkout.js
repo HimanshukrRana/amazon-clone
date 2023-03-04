@@ -6,11 +6,38 @@ import Header from "../components/Header";
 import { selectItems, selectTotal } from "../slices/basketSlice";
 import Currency from "react-currency-formatter";
 import { useSession } from "next-auth/react";
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
+
+import Stripe from "stripe";
+
+const stripePromises = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
 function Checkout() {
   const items = useSelector(selectItems);
   const total = useSelector(selectTotal);
   const { data: session } = useSession();
+
+  const createCheckoutSession = async () => {
+    const stripe = await stripePromises;
+
+    //call the api
+
+    const checkoutsession = await axios.post("api/create-checkout-session", {
+      items: items,
+      email: session.user.email,
+    });
+
+    //Redirect to stripe
+
+    const result = await stripe.redirectToCheckout({
+      sessionId: checkoutsession.data.id,
+    });
+
+    if (result.error) {
+      alert(result.error.message);
+    }
+  };
 
   return (
     <div className="bg-gray-100">
@@ -22,7 +49,7 @@ function Checkout() {
             src="https://links.papareact.com/ikj"
             width={1320}
             height={290}
-            objectFit="contain"
+            style={{ objectFit: "contain" }}
             className="h-auto w-[1380px]"
           />
 
@@ -54,12 +81,14 @@ function Checkout() {
             <>
               <h2 className="whitespace-nowrap">
                 SubTotal ({items.length}items:
-                <span className="font-bold">
+                <p className="font-bold">
                   <Currency quantity={total} currency="INR" />
-                </span>
+                </p>
                 )
               </h2>
               <button
+                onClick={createCheckoutSession}
+                disabled={!session}
                 className={`button mt-2 ${
                   !session && "from-gray-200 to-gray-300 "
                 }`}

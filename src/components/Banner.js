@@ -15,6 +15,18 @@ function Banner() {
         interval={5000}
       >
         <div>
+          <img src="/s1.jpg" loading="lazy" alt="slider1" />
+        </div>
+        <div>
+          <img src="/s2.jpg" loading="lazy" alt="slider1" />
+        </div>
+        <div>
+          <img src="/s4.jpg" loading="lazy" alt="slider1" />
+        </div>
+        <div>
+          <img src="s5.jpeg" loading="lazy" alt="slider1" />
+        </div>
+        <div>
           <img
             src="https://links.papareact.com/gi1"
             loading="lazy"
