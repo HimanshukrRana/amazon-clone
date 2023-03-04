@@ -16,7 +16,8 @@ export const authOptions = {
 
     // ...add more providers here
   ],
-  NEXTAUTH_SECRET: "Himanshu-amazon",
+  // NEXTAUTH_SECRET: "Himanshu-amazon",
+  secret: "Himanshu-amazon-hkr",
 };
 
 export default NextAuth(authOptions);
