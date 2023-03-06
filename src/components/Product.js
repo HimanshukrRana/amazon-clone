@@ -3,9 +3,11 @@ import React from "react";
 import { Icon } from "@iconify/react";
 import { useState } from "react";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Currency from "react-currency-formatter";
 
-import { addToBasket } from "../slices/basketSlice";
+import { addToBasket, removeFromBasket } from "../slices/basketSlice";
 import { useDispatch } from "react-redux";
 
 const MAX_RATING = 5;
@@ -31,56 +33,73 @@ function Product({ id, title, price, description, category, image }) {
       rating,
     };
     dispatch(addToBasket(product));
+    toast.success("Added to basket");
+  };
+
+  const RemoveFromBasket = () => {
+    dispatch(removeFromBasket({ id }));
+    toast.warning("Removed from basket");
   };
 
   return (
     <div className="relative flex flex-col m-5 bg-white z-30 p-10 ">
-      <p className="absolute top-2 right-2 text-xs italic text-gray-400 ">
-        {category}
-      </p>
+      <div>
+        <p className="absolute top-2 right-2 text-xs italic text-gray-400 ">
+          {category}
+        </p>
+        <Image
+          src={image ? image : "/amazon3.png"}
+          height={200}
+          width={200}
+          alt="img"
+          style={{ objectFit: "contain" }}
+          className="h-auto w-auto"
+        />
 
-      <Image
-        src={image ? image : "/amazon3.png"}
-        height={200}
-        width={200}
-        alt="img"
-        style={{ objectFit: "contain" }}
-        className="h-auto w-auto"
-      />
-
-      <h4 className="my-3">{title}</h4>
-      <div className="flex">
-        {Array(rating)
-          .fill()
-          .map((_, i) => (
-            <Icon
-              icon="material-symbols:star-rate-rounded"
-              color="yellow"
-              height={20}
-              key={i}
-            />
-          ))}
-      </div>
-
-      <p className="text-xs my-2 line-clamp-2">{description}</p>
-
-      <div className="mb-5">
-        <Currency quantity={price} currency="INR" />
-      </div>
-
-      {hasPrime && (
-        <div className="flex items-center space-x-2 -mt-5">
-          <img
-            src="https://links.papareact.com/fdw"
-            alt="prime"
-            className="h-[40px]"
-          />
-          <p className="text-xs text-gray-500">Free Fast Delivery</p>
+        <h4 className="my-3">{title}</h4>
+        <div className="flex">
+          {Array(rating)
+            .fill()
+            .map((_, i) => (
+              <Icon
+                icon="material-symbols:star-rate-rounded"
+                color="yellow"
+                height={20}
+                key={i}
+              />
+            ))}
         </div>
-      )}
-      <button className="mt-auto button" onClick={addItemToBasket}>
+
+        <p className="text-xs my-2 line-clamp-2">{description}</p>
+
+        <div className="mb-5">
+          <Currency quantity={price} currency="INR" />
+        </div>
+
+        {hasPrime && (
+          <div className="flex items-center space-x-2 -mt-5">
+            <img
+              src="https://links.papareact.com/fdw"
+              alt="prime"
+              className="h-[40px]"
+            />
+            <p className="text-xs text-gray-500">Free Fast Delivery</p>
+          </div>
+        )}
+      </div>
+
+      {/* <button className="mt-auto button" onClick={addItemToBasket}>
         Add to Basket
-      </button>
+      </button> */}
+      <div className="flex flex-col space-y-2 my-auto justify-self-end mt-auto">
+        <button className="button" onClick={addItemToBasket}>
+          Add to Basket
+        </button>
+        <button className="button-r bg-red-500" onClick={RemoveFromBasket}>
+          Remove from Basket
+        </button>
+      </div>
+      <ToastContainer />
     </div>
   );
 }

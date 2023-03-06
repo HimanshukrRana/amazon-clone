@@ -5,6 +5,11 @@ import Currency from "react-currency-formatter";
 import { useDispatch } from "react-redux";
 import { addToBasket, removeFromBasket } from "../slices/basketSlice";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+// import { toast } from "react-hot-toast";
+
 function CheckoutProduct({
   id,
   title,
@@ -28,10 +33,13 @@ function CheckoutProduct({
       rating,
     };
     dispatch(addToBasket(product));
+    toast.success("Added to Basket");
   };
   const RemoveFromBasket = () => {
     dispatch(removeFromBasket({ id }));
+    toast.warning("Removed from Basket");
   };
+
   return (
     <div className="grid grid-cols-5">
       <Image
@@ -74,13 +82,16 @@ function CheckoutProduct({
       </div>
 
       <div className="flex flex-col space-y-2 my-auto justify-self-end">
-        <button className="button" onClick={RemoveFromBasket}>
+        <button className="button-r" onClick={RemoveFromBasket}>
           Remove from Basket
         </button>
-        <button className="button" onClick={addItemToBasket}>
-          Add to Basket
-        </button>
+        <div>
+          <button className="button" onClick={addItemToBasket}>
+            Add to Basket
+          </button>
+        </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }
