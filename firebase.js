@@ -1,6 +1,10 @@
+// import firebase from "firebase";
+// import { initializeApp } from "firebase/app";
+// import { getFirestore } from "firebase/firestore/lite";
+
 import firebase from "firebase/compat/app";
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore/lite";
+
+import "firebase/compat/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyChf2ZZRSeSGPTudRBl9dw5WWstOD98F6A",
@@ -11,13 +15,13 @@ const firebaseConfig = {
   appId: "1:944752342475:web:79e011deba3ecaaca1f24e",
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+// const app = initializeApp(firebaseConfig);
+// const db = getFirestore(app);
 
-// const app = !firebase.apps.length
-//   ? firebase.initializeApp(firebaseConfig)
-//   : firebase.app();
+const app = !firebase.apps.length
+  ? firebase.initializeApp(firebaseConfig)
+  : firebase.app();
 
-// const db = app.firestore();
+const db = app.firestore();
 
 export default db;
